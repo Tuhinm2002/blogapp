@@ -4,7 +4,7 @@ import Image from "next/image";
 import React from "react";
 import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
 
-export function ThreeDCardDemo() {
+export function ThreeDCardDemo(props) {
   return (
     (<CardContainer className="inter-var">
       <CardBody
@@ -12,7 +12,7 @@ export function ThreeDCardDemo() {
         <CardItem
           translateZ="50"
           className="text-xl font-bold text-neutral-600 dark:text-white">
-          Make things float in air
+          {props.name}
         </CardItem>
         <CardItem
           as="p"

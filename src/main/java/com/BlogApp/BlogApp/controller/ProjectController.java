@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/")
+@CrossOrigin
 public class ProjectController {
     @Autowired
     BlogAppService appService;
@@ -28,13 +29,14 @@ public class ProjectController {
 
     @PostMapping("/add")
     public ResponseEntity<?> addBlog(@RequestParam int id,@RequestParam String username,
-                                     @RequestParam String text,
+                                     @RequestParam String text,@RequestParam String topic,
                                      @RequestParam(required = false)MultipartFile img){
         try {
             BlogPage blogPage = new BlogPage();
             blogPage.setId(id);
             blogPage.setUsername(username);
             blogPage.setText(text);
+            blogPage.setTopic(topic);
             blogPage =  appService.addBlog(blogPage,img);
 //            BlogPage blogPage = appService.addBlog(data,img);
            return new ResponseEntity<>(blogPage,HttpStatus.CREATED);
@@ -63,7 +65,7 @@ public class ProjectController {
 
     @PutMapping("/update/{id}")
     public ResponseEntity<?> updateBlog(@PathVariable int id,@RequestParam String username,
-                                     @RequestParam String text,
+                                     @RequestParam String text,@RequestParam String topic,
                                      @RequestParam(required = false)MultipartFile img){
 
         BlogPage blogPage = new BlogPage();
@@ -72,6 +74,7 @@ public class ProjectController {
             blogPage.setId(id);
             blogPage.setUsername(username);
             blogPage.setText(text);
+            blogPage.setTopic(topic);
             blogPage =  appService.addBlog(blogPage,img);
         } catch (Exception e) {
             throw new RuntimeException(e);

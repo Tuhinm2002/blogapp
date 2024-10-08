@@ -3,10 +3,7 @@ package com.BlogApp.BlogApp.models;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import java.awt.image.BufferedImage;
-import javax.imageio.ImageIO;
 
-import java.util.Arrays;
 
 @Document
 public class BlogPage {
@@ -14,12 +11,21 @@ public class BlogPage {
     @Id
     private int id;
     private String username;
+    private String topic;
     private String text;
 
     private String imageType;
     private String imageName;
 
     private byte[] image;
+
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
+    }
 
     public int getId() {
         return id;

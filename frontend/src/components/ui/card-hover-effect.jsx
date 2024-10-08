@@ -11,7 +11,7 @@ export const HoverEffect = ({
     (<div
       className={cn("grid grid-cols-1 md:grid-cols-2  lg:grid-cols-2 gap-x-8", className)}>
       {items.map((item, idx) => (
-        <ThreeDCardDemo></ThreeDCardDemo>
+        <ThreeDCardDemo name={items[idx].username}></ThreeDCardDemo>
       ))}
     </div>)
   );
