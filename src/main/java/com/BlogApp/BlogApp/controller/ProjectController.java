@@ -4,6 +4,7 @@ import com.BlogApp.BlogApp.models.BlogPage;
 import com.BlogApp.BlogApp.services.BlogAppService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,6 +31,7 @@ public class ProjectController {
     @PostMapping("/add")
     public ResponseEntity<?> addBlog(@RequestParam int id,@RequestParam String username,
                                      @RequestParam String text,@RequestParam String topic,
+                                     @RequestParam String email,
                                      @RequestParam(required = false)MultipartFile img){
         try {
             BlogPage blogPage = new BlogPage();
@@ -66,6 +68,7 @@ public class ProjectController {
     @PutMapping("/update/{id}")
     public ResponseEntity<?> updateBlog(@PathVariable int id,@RequestParam String username,
                                      @RequestParam String text,@RequestParam String topic,
+                                     @RequestParam String email,
                                      @RequestParam(required = false)MultipartFile img){
 
         BlogPage blogPage = new BlogPage();
@@ -86,5 +89,14 @@ public class ProjectController {
         else{
             return new ResponseEntity<>("Failed to update",HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @GetMapping("/blogs/{prodId}/image")
+    public ResponseEntity<byte[]> getImageById(@PathVariable int prodId){
+        BlogPage blogPage = appService.getElement(prodId);
+        byte[] imageFile = blogPage.getImage();
+        return ResponseEntity.ok()
+                .contentType(MediaType.valueOf(blogPage.getImageType()))
+                .body(imageFile);
     }
 }

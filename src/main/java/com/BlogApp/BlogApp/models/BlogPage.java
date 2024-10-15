@@ -13,11 +13,20 @@ public class BlogPage {
     private String username;
     private String topic;
     private String text;
+    private String email;
 
     private String imageType;
     private String imageName;
 
     private byte[] image;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getTopic() {
         return topic;

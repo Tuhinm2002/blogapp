@@ -2,9 +2,32 @@
 
 import Image from "next/image";
 import React from "react";
+import {useState,useEffect } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
 
 export function ThreeDCardDemo(props) {
+
+
+    const {id} = useParams();
+    // const {prodId} = params;
+    const [imageUrl,setImageUrl] = useState("");
+  
+    // {`/src/components/images/${props.imageUrl}`}
+  
+    useEffect(() => {
+    const fetchImage = async () => {
+      const responseData = await axios.get(
+        `http://localhost:8080/blogs/${props.ind}/image`,
+        { responseType: "blob" }
+      );
+      setImageUrl(URL.createObjectURL(responseData.data));
+    };
+    fetchImage()
+  
+  },[id])
+
   return (
     (<CardContainer className="inter-var">
       <CardBody
@@ -18,11 +41,11 @@ export function ThreeDCardDemo(props) {
           as="p"
           translateZ="60"
           className="text-neutral-500 text-sm max-w-sm mt-2 dark:text-neutral-300">
-          Hover over this card to unleash the power of CSS perspective
+          {props.topic}
         </CardItem>
         <CardItem translateZ="100" rotateX={20} rotateZ={-10} className="w-full mt-4">
           <Image
-            src=""
+            src={imageUrl}
             height="1000"
             width="1000"
             className="h-60 w-full object-cover rounded-xl group-hover/card:shadow-xl"
