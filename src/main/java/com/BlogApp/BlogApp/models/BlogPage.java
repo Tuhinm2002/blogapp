@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class BlogPage {
 
     @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String username;
     private String topic;

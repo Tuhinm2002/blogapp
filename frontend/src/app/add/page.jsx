@@ -4,14 +4,54 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { FloatingNavDemo } from "@/components/NavBar";
-import { FileUploadDemo } from "@/components/FileUploader";
+import {useEffect } from "react";
+import { useState } from "react";
+import { FileUpload } from "@/components/ui/file-upload";
+import axios from "axios";
 
 
 export default function SignupFormDemo() {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Form submitted");
+  
+
+  const [email,setEmail] = useState(null);
+  const [firstName,setFirstName] = useState(null);
+  const [lastName,setLastName] = useState(null);
+  const [text,setText] = useState(null);
+  const [topic,setTopic] = useState(null);
+  const [files, setFiles] = useState([]);
+  
+  const handleFileUpload = (files) => {
+    setFiles(files);
+    console.log(files);
   };
+
+  console.log(firstName)
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formdata = new FormData();
+    formdata.append("username",firstName + lastName);
+    formdata.append("text",text);
+    formdata.append("email",email);
+    formdata.append("topic",topic);
+    formdata.append("img",files);
+
+    try {
+
+      const response = await axios.post("http://localhost:8080/add",
+        formData, {
+          headers: {
+            "Content-Type": "multipart/form-data", 
+          },
+        }
+      )
+      
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
   return (
   
     (
@@ -28,23 +68,38 @@ export default function SignupFormDemo() {
       <form className="my-8" onSubmit={handleSubmit}>
         <div
           className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
+          
+          
           <LabelInputContainer>
             <Label htmlFor="firstname">First name</Label>
-            <Input id="firstname" placeholder="Tyler" type="text" />
+            <Input id="firstname" placeholder="Tyler" type="text" 
+            value={firstName} onChange={(e) => setFirstName(e.target.value)}/>
           </LabelInputContainer>
+          
+          
           <LabelInputContainer>
             <Label htmlFor="lastname">Last name</Label>
-            <Input id="lastname" placeholder="Durden" type="text" />
+            <Input id="lastname" placeholder="Durden" type="text" 
+            value={lastName} onChange={(e) => setLastName(e.target.value)}/>
           </LabelInputContainer>
+        
         </div>
+        
+        
         <LabelInputContainer className="mb-4">
           <Label htmlFor="email">Email Address</Label>
-          <Input id="email" placeholder="projectmayhem@fc.com" type="email" />
+          <Input id="email" placeholder="projectmayhem@fc.com" type="email" 
+          value={email} onChange={(e) => setEmail(e.target.value)}/>
         </LabelInputContainer>
+        
+        
         <LabelInputContainer className="mb-4">
           <Label htmlFor="techStack">Tech Stack or Topic</Label>
-          <Input id="techStack" placeholder="java,js,python,etc" type="text" />
+          <Input id="techStack" placeholder="java,js,python,etc" type="text" 
+          value={topic} onChange={(e) => setTopic(e.target.value)}/>
         </LabelInputContainer>
+        
+        
         <LabelInputContainer className="mb-8 h-48">
           <Label htmlFor="blogText" >Your Idea</Label>
           <textarea id="blogText" placeholder="let your creativity out here" type="text" 
@@ -53,16 +108,22 @@ export default function SignupFormDemo() {
         focus-visible:outline-none focus-visible:ring-[2px]  focus-visible:ring-neutral-400 dark:focus-visible:ring-neutral-600
          disabled:cursor-not-allowed disabled:opacity-50
          dark:shadow-[0px_0px_1px_1px_var(--neutral-700)]
-         group-hover/input:shadow-none transition duration-400"/>
+         group-hover/input:shadow-none transition duration-400" 
+         value={text} onChange={(e) => setText(e.target.value)}/>
         </LabelInputContainer>
 
-        <FileUploadDemo></FileUploadDemo>
+        <div
+      className="w-full max-w-4xl mx-auto min-h-96 border border-dashed bg-white dark:bg-black border-neutral-200 dark:border-neutral-800 rounded-lg">
+      <FileUpload onChange={handleFileUpload} />
+      </div>
+        
         <button
           className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
           type="submit">
-          Sign up &rarr;
+          Add Blog &rarr;
           <BottomGradient />
         </button>
+      
       </form>
     </div>
     </>)

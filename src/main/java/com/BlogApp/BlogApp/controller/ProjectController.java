@@ -39,6 +39,7 @@ public class ProjectController {
             blogPage.setUsername(username);
             blogPage.setText(text);
             blogPage.setTopic(topic);
+            blogPage.setEmail(email);
             blogPage =  appService.addBlog(blogPage,img);
 //            BlogPage blogPage = appService.addBlog(data,img);
            return new ResponseEntity<>(blogPage,HttpStatus.CREATED);
@@ -78,6 +79,7 @@ public class ProjectController {
             blogPage.setUsername(username);
             blogPage.setText(text);
             blogPage.setTopic(topic);
+            blogPage.setEmail(email);
             blogPage =  appService.addBlog(blogPage,img);
         } catch (Exception e) {
             throw new RuntimeException(e);
