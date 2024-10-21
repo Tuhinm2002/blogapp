@@ -29,13 +29,12 @@ public class ProjectController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> addBlog(@RequestParam int id,@RequestParam String username,
+    public ResponseEntity<?> addBlog(@RequestParam String username,
                                      @RequestParam String text,@RequestParam String topic,
                                      @RequestParam String email,
                                      @RequestParam(required = false)MultipartFile img){
         try {
             BlogPage blogPage = new BlogPage();
-            blogPage.setId(id);
             blogPage.setUsername(username);
             blogPage.setText(text);
             blogPage.setTopic(topic);
@@ -67,7 +66,7 @@ public class ProjectController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateBlog(@PathVariable int id,@RequestParam String username,
+    public ResponseEntity<?> updateBlog(@RequestParam String username,
                                      @RequestParam String text,@RequestParam String topic,
                                      @RequestParam String email,
                                      @RequestParam(required = false)MultipartFile img){
@@ -75,7 +74,6 @@ public class ProjectController {
         BlogPage blogPage = new BlogPage();
 
         try {
-            blogPage.setId(id);
             blogPage.setUsername(username);
             blogPage.setText(text);
             blogPage.setTopic(topic);

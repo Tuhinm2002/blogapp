@@ -24,6 +24,7 @@ public class BlogAppService {
         data.setImage(img.getBytes());
         data.setImageName(img.getOriginalFilename());
         data.setImageType(img.getContentType());
+        data.setId(repo.max()+1);
         return repo.save(data);
     }
 
