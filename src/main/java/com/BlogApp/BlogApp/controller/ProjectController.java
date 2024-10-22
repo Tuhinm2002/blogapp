@@ -66,19 +66,20 @@ public class ProjectController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateBlog(@RequestParam String username,
+    public ResponseEntity<?> updateBlog(@PathVariable int id, @RequestParam String username,
                                      @RequestParam String text,@RequestParam String topic,
                                      @RequestParam String email,
                                      @RequestParam(required = false)MultipartFile img){
 
-        BlogPage blogPage = new BlogPage();
+        BlogPage blogPage = appService.getElement(id);
 
         try {
+            blogPage.setId(id);
             blogPage.setUsername(username);
             blogPage.setText(text);
             blogPage.setTopic(topic);
             blogPage.setEmail(email);
-            blogPage =  appService.addBlog(blogPage,img);
+            blogPage =  appService.update(blogPage,img);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

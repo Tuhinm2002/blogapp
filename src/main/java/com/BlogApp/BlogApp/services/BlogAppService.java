@@ -35,4 +35,11 @@ public class BlogAppService {
     public BlogPage getElement(int id) {
         return repo.findById(id).orElse(new BlogPage());
     }
+
+    public BlogPage update(BlogPage data,MultipartFile img) throws IOException {
+        data.setImage(img.getBytes());
+        data.setImageName(img.getOriginalFilename());
+        data.setImageType(img.getContentType());
+        return repo.save(data);
+    }
 }
