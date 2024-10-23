@@ -4,9 +4,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { FloatingNavDemo } from "@/components/NavBar";
-import {useEffect } from "react";
 import { useState } from "react";
-import { FileUpload } from "@/components/ui/file-upload";
 import axios from "axios";
 
 
@@ -29,7 +27,7 @@ export default function SignupFormDemo() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const formdata = new FormData();
-    const username = firstName + lastName;
+    const username = firstName + " " + lastName;
     formdata.append("username",username);
     formdata.append("text",text);
     formdata.append("email",email);

@@ -3,6 +3,9 @@ import { FloatingNavDemo } from "@/components/NavBar";
 import { CardHoverEffectDemo } from "@/components/Blogs";
 
 export default function Home() {
+
+  
+
   return (
     <>
     <FloatingNavDemo></FloatingNavDemo>

@@ -28,6 +28,19 @@ export function ThreeDCardDemo(props) {
   
   },[id])
 
+  async function deleteBlog(e){
+    e.preventDefault()
+    try {
+      await axios.delete(`http://localhost:8080/blogs/${props.ind}`)
+      
+    }
+    catch(error){
+      console.log(error)
+    }
+  };
+
+
+
   return (
     (<CardContainer className="inter-var">
       <CardBody
@@ -63,7 +76,8 @@ export function ThreeDCardDemo(props) {
           <button
             translateZ={20}
             translateX={-20}
-            className="px-4 py-2 rounded-xl text-xs font-normal dark:text-white">
+            className="px-4 py-2 rounded-xl text-xs font-normal dark:text-white"
+            onClick={deleteBlog}>
             delete →
           </button>
           

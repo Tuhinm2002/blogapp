@@ -9,6 +9,7 @@ import axios from "axios";
 
 
 export default function SignupFormDemo() {
+
   
   const curr_val = window.location.href.slice(-1);
 
@@ -23,6 +24,8 @@ export default function SignupFormDemo() {
     setFile(e.target.files[0]);
     console.log(file);
   };
+
+  
 
 
   const handleSubmit = (e) => {
