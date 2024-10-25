@@ -13,8 +13,7 @@ Welcome to **Bug Blogger** — a powerful blogging app where you can share your 
 
 - **Frontend**: ReactJS ⚛️
 - **Backend**: Java Spring Boot ☕
-- **Database**: MySQL 🗄️
-- **Authentication**: JWT 🛡️
+- **Database**: MongoDB 🗄️
 
 ## 📦 Installation
 
