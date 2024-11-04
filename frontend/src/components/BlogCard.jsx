@@ -19,7 +19,7 @@ export function ThreeDCardDemo(props) {
     useEffect(() => {
     const fetchImage = async () => {
       const responseData = await axios.get(
-        `http://localhost:8080/blogs/${props.ind}/image`,
+        `http://localhost:8090/blogs/${props.ind}/image`,
         { responseType: "blob" }
       );
       setImageUrl(URL.createObjectURL(responseData.data));
@@ -31,7 +31,7 @@ export function ThreeDCardDemo(props) {
   async function deleteBlog(e){
     e.preventDefault()
     try {
-      await axios.delete(`http://localhost:8080/blogs/${props.ind}`)
+      await axios.delete(`http://localhost:8090/blogs/${props.ind}`)
       
     }
     catch(error){

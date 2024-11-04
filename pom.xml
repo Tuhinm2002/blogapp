@@ -28,6 +28,10 @@
 	</scm>
 	<properties>
 		<java.version>21</java.version>
+		<frontend-src-dir>${project.basedir}/src/main/frontend</frontend-src-dir>
+		<node.version>v20.18.0</node.version>
+		<npm.version>10.8.2</npm.version>
+		<frontend-maven-plugin.version>1.15.1</frontend-maven-plugin.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -44,6 +48,14 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.github.eirslett/frontend-maven-plugin -->
+		<dependency>
+			<groupId>com.github.eirslett</groupId>
+			<artifactId>frontend-maven-plugin</artifactId>
+			<version>1.15.1</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

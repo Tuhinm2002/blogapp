@@ -10,7 +10,6 @@ import axios from "axios";
 
 export default function SignupFormDemo() {
 
-  
   const curr_val = window.location.href.slice(-1);
 
   const [email,setEmail] = useState("");

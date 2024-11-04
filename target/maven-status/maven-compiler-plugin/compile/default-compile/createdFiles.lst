@@ -1,5 +1,5 @@
-com/BlogApp/BlogApp/models/BlogPage.class
-com/BlogApp/BlogApp/services/BlogAppService.class
-com/BlogApp/BlogApp/repository/BlogPageRepo.class
-com/BlogApp/BlogApp/BlogAppApplication.class
-com/BlogApp/BlogApp/controller/ProjectController.class
+com\BlogApp\BlogApp\BlogAppApplication.class
+com\BlogApp\BlogApp\repository\BlogPageRepo.class
+com\BlogApp\BlogApp\services\BlogAppService.class
+com\BlogApp\BlogApp\controller\ProjectController.class
+com\BlogApp\BlogApp\models\BlogPage.class

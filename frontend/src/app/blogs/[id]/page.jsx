@@ -7,28 +7,25 @@ import axios from "axios";
 import { useState,useEffect } from "react";
 import calsans from "cal-sans";
 
+import useSWR from "swr";
 
+const fetcher = (url) => fetch(url).then((r) => r.json())
 
 export default function TracingBeamDemo() {
-      
-    const curr_val = window.location.href.slice(-1);
     
     const [responseData,setResponseData] = useState([])
     const [imageUrl,setImageUrl] = useState("");
     
     useEffect(() =>{
-        const fetchProduct = async () =>{
-        try {
-        const val = await axios.get(`http://localhost:8080/blogs/${curr_val}`)
-        .then(res =>{
-        setResponseData(res.data);
-
+        const {res,error} = useSWR(`http://localhost:8090/blogs/${curr_val}`,
+          fetcher
+        )
         
         if(res.data.image){
           // fetchImage();
           const fetchImage = async () => {
             const response = await axios.get(
-              `http://localhost:8080/blogs/${curr_val}/image`,
+              `http://localhost:8090/blogs/${curr_val}/image`,
               { responseType: "blob" }
             );
             setImageUrl(URL.createObjectURL(response.data));
