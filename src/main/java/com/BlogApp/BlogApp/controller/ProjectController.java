@@ -12,8 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
-@RequestMapping("/")
 @CrossOrigin
+
 public class ProjectController {
     @Autowired
     BlogAppService appService;

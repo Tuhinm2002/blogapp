@@ -1,73 +1,71 @@
 "use client";
-import React from "react";
+
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { twMerge } from "tailwind-merge";
 import { TracingBeam } from "@/components/ui/tracing-beam";
 import axios from "axios";
-import { useState,useEffect } from "react";
 import calsans from "cal-sans";
-
 import useSWR from "swr";
 
-const fetcher = (url) => fetch(url).then((r) => r.json())
+const curr_val = window.location.href[window.location.href.length - 1];
+
+const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export default function TracingBeamDemo() {
-    
-    const [responseData,setResponseData] = useState([])
-    const [imageUrl,setImageUrl] = useState("");
-    
-    useEffect(() =>{
-        const {res,error} = useSWR(`http://localhost:8090/blogs/${curr_val}`,
-          fetcher
-        )
-        
-        if(res.data.image){
-          // fetchImage();
-          const fetchImage = async () => {
-            const response = await axios.get(
-              `http://localhost:8090/blogs/${curr_val}/image`,
-              { responseType: "blob" }
-            );
-            setImageUrl(URL.createObjectURL(response.data));
-          };
-          fetchImage()
-        }
+  const [imageUrl, setImageUrl] = useState("");
+  const { data, error } = useSWR(`http://localhost:8080/blogs/${curr_val}`, fetcher);
 
-        })
-        } catch (error) {
-            console.log(error);
-        }
-        
-        }
-        fetchProduct()
-    },[]) 
+  useEffect(() => {
+    const fetchImage = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8080/blogs/${curr_val}/image`,
+          { responseType: "blob" }
+        );
+        const imgUrl = URL.createObjectURL(response.data);
+        console.log("Image URL:", imgUrl);
+        setImageUrl(imgUrl);
+      } catch (err) {
+        console.error("Image fetch error:", err);
+      }
+    };
+
+    if (data && data.image) {
+      fetchImage();
+    }
+  }, [data]);
+
+  if (error) return <div className="text-red-500">Failed to load data.</div>;
+  if (!data) return <div className="text-gray-500">Loading...</div>;
 
   return (
-    (<TracingBeam className="px-6">
+    <TracingBeam className="px-6">
       <div className="max-w-2xl mx-auto antialiased pt-4 relative">
-          
-            <h2 className="bg-black text-white rounded-full text-sm w-fit px-4 py-1 mb-4">
-              {responseData.username}
-            </h2>
+        <h2 className="bg-black text-white rounded-full text-sm w-fit px-4 py-1 mb-4">
+          {data.username || "No username"}
+        </h2>
 
-            <p className={twMerge(calsans.className, "text-xl mb-4")}>
-              {responseData.topic}
-            </p>
+        <p className={twMerge(calsans.className, "text-xl mb-4")}>
+          {data.topic || "No topic"}
+        </p>
 
-            <div className="text-sm  prose prose-sm dark:prose-invert">
-                
-                <Image
-                  src={imageUrl}
-                  alt="blog thumbnail"
-                  height="1000"
-                  width="1000"
-                  className="rounded-lg mb-10 object-cover" />
-              
-              {responseData.text}
-            
-            </div>
-          </div>
-      
-    </TracingBeam>)
+        <div className="text-sm prose prose-sm dark:prose-invert">
+          {imageUrl ? (
+            <Image
+              src={imageUrl}
+              alt="blog thumbnail"
+              height={1000}
+              width={1000}
+              className="rounded-lg mb-10 object-cover"
+            />
+          ) : (
+            <div className="text-gray-400">No image available</div>
+          )}
+
+          {data.text ? <p>{data.text}</p> : <p className="text-gray-400">No content</p>}
+        </div>
+      </div>
+    </TracingBeam>
   );
 }

@@ -1,17 +1,16 @@
 package com.BlogApp.BlogApp.models;
 
 
+import jakarta.persistence.*;
+import lombok.Data;
 
-import org.springframework.aot.generate.Generated;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-
-@Document
+@Entity
+@Data
+@Table(name="data_table")
 public class BlogPage {
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String username;
     private String topic;
@@ -21,6 +20,7 @@ public class BlogPage {
     private String imageType;
     private String imageName;
 
+    @Lob
     private byte[] image;
 
     public String getEmail() {

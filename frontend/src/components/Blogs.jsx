@@ -10,7 +10,7 @@ export function CardHoverEffectDemo() {
 
     const fetchBlog = async () =>{
     try {
-      const response = await axios.get("http://localhost:8090/blogs")
+      const response = await axios.get("http://localhost:8080/blogs")
       .then(res =>{
       
       setBlog(res.data);
